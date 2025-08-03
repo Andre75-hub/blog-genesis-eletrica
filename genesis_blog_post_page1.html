@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post - Blog Gênesis Elétrica</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Post Hero Section */
+        .post-hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23e5e7eb" width="1200" height="400"/><text x="600" y="200" text-anchor="middle" dy=".3em" fill="%23374151" font-size="18" font-family="Arial">Imagem do Post</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            color: white;
+        }
+
+        .post-hero-content {
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1rem;
+        }
+
+        .blog-name {
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .post-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .post-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .post-icons i {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+        }
+
+        .post-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .post-content h2 {
+            color: #1e3a8a;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .post-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .post-content ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .post-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-widget {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-widget {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        .recent-posts {
+            list-style: none;
+        }
+
+        .recent-posts li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .recent-posts li:last-child {
+            border-bottom: none;
+        }
+
+        .recent-posts a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .recent-posts a:hover {
+            color: #3b82f6;
+        }
+
+        /* Share Section */
+        .share-section {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .share-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .share-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .share-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .facebook { background-color: #1877f2; }
+        .twitter { background-color: #1da1f2; }
+        .instagram { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
+        .linkedin { background-color: #0077b5; }
+        .email { background-color: #34495e; }
+        .whatsapp { background-color: #25d366; }
+
+        /* About Blog Section */
+        .about-blog {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .about-content h3 {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .team-signature {
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-top: 1rem;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comments-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 2rem;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .comment-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-input {
+            padding: 0.8rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 0 1rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .about-blog {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .share-icons {
+                gap: 0.8rem;
+            }
+
+            .share-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                Gênesis Elétrica
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="post-hero-content">
+            <h1 class="post-title">IDR: O que é e para que serve o Interruptor Diferencial Residual</h1>
+            <div class="post-meta">
+                <span class="blog-name">Blog Gênesis Elétrica</span>
+                <div class="post-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>02 de Agosto, 2025</span>
+                </div>
+                <div class="post-icons">
+                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-comment"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <article class="post-content">
+            <p>O Interruptor Diferencial Residual (IDR) é um dispositivo de segurança fundamental em instalações elétricas modernas. Sua principal função é proteger pessoas contra choques elétricos e prevenir incêndios causados por fugas de corrente.</p>
+
+            <h2>O que é o IDR?</h2>
+            <p>O IDR é um dispositivo de proteção que monitora continuamente a corrente elétrica que entra e sai de um circuito. Quando detecta uma diferença entre essas correntes, indica que há uma fuga de corrente, podendo ser perigosa para as pessoas ou para a instalação.</p>
+
+            <h2>Como funciona?</h2>
+            <p>O princípio de funcionamento do IDR baseia-se na comparação entre a corrente que entra no circuito (fase) e a que retorna (neutro). Em condições normais, essas correntes são iguais. Quando há uma fuga de corrente para a terra, através de uma pessoa ou falha na instalação, o IDR detecta essa diferença e interrompe imediatamente o fornecimento de energia.</p>
+
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'><rect fill='%23f3f4f6' width='800' height='400'/><text x='400' y='200' text-anchor='middle' dy='.3em' fill='%23374151' font-size='16' font-family='Arial'>Imagem: IDR instalado em quadro elétrico</text></svg>" alt="IDR instalado em quadro elétrico">
+
+            <h2>Tipos de IDR</h2>
+            <p>Existem diferentes tipos de IDR, classificados principalmente pela corrente diferencial-residual nominal:</p>
+            <ul>
+                <li><strong>IDR de 30mA:</strong> Usado para proteção de pessoas em circuitos de tomadas e iluminação</li>
+                <li><strong>IDR de 100mA:</strong> Utilizado para proteção contra incêndios em circuitos de distribuição</li>
+                <li><strong>IDR de 300mA:</strong> Aplicado em proteção geral de instalações industriais</li>
+            </ul>
+
+            <h2>Onde deve ser instalado?</h2>
+            <p>Segundo a norma NBR 5410, o IDR deve ser instalado em:</p>
+            <ul>
+                <li>Circuitos que alimentam tomadas de corrente em cozinhas, copas, lavanderias, áreas de serviço, garagens e demais dependências internas molhadas em uso normal ou sujeitas a lavagem</li>
+                <li>Circuitos que alimentam tomadas de corrente em áreas externas</li>
+                <li>Circuitos de iluminação externa</li>
+                <li>Circuitos que alimentam tomadas de corrente em banheiros</li>
+            </ul>
+
+            <h2>Benefícios do IDR</h2>
+            <p>A instalação do IDR oferece diversos benefícios:</p>
+            <ul>
+                <li><strong>Proteção contra choques elétricos:</strong> Reduz drasticamente o risco de acidentes fatais</li>
+                <li><strong>Prevenção de incêndios:</strong> Detecta fugas de corrente que podem causar aquecimento e ignição</li>
+                <li><strong>Conformidade com normas:</strong> Atende às exigências da NBR 5410</li>
+                <li><strong>Valorização do imóvel:</strong> Instalações seguras agregam valor à propriedade</li>
+            </ul>
+
+            <h2>Manutenção e Teste</h2>
+            <p>É importante testar periodicamente o funcionamento do IDR através do botão de teste (T) presente no dispositivo. Recomenda-se fazer esse teste mensalmente. Se o IDR não desarmar durante o teste, deve ser substituído imediatamente.</p>
+
+            <p>O IDR é um investimento na segurança da sua família e do seu patrimônio. Não deixe de consultar um eletricista qualificado para avaliar sua instalação e garantir que ela esteja adequadamente protegida.</p>
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget search-widget">
+                <div style="position: relative;">
+                    <input type="text" class="search-input" placeholder="Buscar no blog...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Últimos Posts</h3>
+                <ul class="recent-posts">
+                    <li><a href="#post1">Como dimensionar disjuntores para sua instalação elétrica</a></li>
+                    <li><a href="#post2">Segurança elétrica: principais cuidados em casa</a></li>
+                    <li><a href="#post3">Tipos de cabos elétricos e suas aplicações</a></li>
+                    <li><a href="#post4">Manutenção preventiva em instalações elétricas</a></li>
+                    <li><a href="#post5">Economia de energia: dicas práticas para sua conta de luz</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Share Section -->
+    <div class="main-content" style="grid-template-columns: 1fr;">
+        <div class="share-section">
+            <h3 class="share-title">Compartilhar:</h3>
+            <div class="share-icons">
+                <a href="#" class="share-icon facebook" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-icon twitter" title="X (Twitter)">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="#" class="share-icon instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="share-icon linkedin" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="share-icon email" title="E-mail">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="#" class="share-icon whatsapp" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- About Blog Section -->
+        <div class="about-blog">
+            <div class="about-logo">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="about-content">
+                <h3>Gênesis Elétrica</h3>
+                <p>Bem-vindo(a) ao Blog Gênesis Elétrica! Com uma trajetória ascendente no mercado, a Gênesis Elétrica entende a importância do conhecimento compartilhado. Nosso compromisso é oferecer conteúdo confiável e de alta qualidade para garantir mais segurança, conforto e uma relação mais positiva entre a eletricidade e você, cliente. Explore nosso blog, inspire-se com nossas dicas e sinta-se à vontade para compartilhar suas ideias e experiências. Juntos, vamos construir um ambiente de aprendizagem e evolução constante!</p>
+                <p class="team-signature"><strong>Equipe, Gênesis Elétrica!</strong></p>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h3 class="comments-title">Deixe um comentário</h3>
+            <form class="comment-form">
+                <textarea class="comment-textarea" placeholder="Escreva seu comentário aqui..." required></textarea>
+                <div class="form-row">
+                    <input type="text" class="form-input" placeholder="Seu nome *" required>
+                    <input type="email" class="form-input" placeholder="Seu e-mail *" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="save-data">
+                    <label for="save-data">Salvar meus dados neste navegador para a próxima vez que eu comentar.</label>
+                </div>
+                <button type="submit" class="submit-btn">ENVIAR COMENTÁRIO</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-bolt"></i> Gênesis Elétrica
+                </div>
+                <div class="footer-contact">
+                    <a href="https://wa.me/5531999999999" class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>(31) 99999-9999</span>
+                    </a>
+                    <a href="mailto:contato@genesiseletrica.com.br" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contato@genesiseletrica.com.br</span>
+                    </a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2025 Gênesis Elétrica. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        document.querySelector('.search-icon').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim()) {
+                console.log('Buscando por:', searchTerm);
+                // Aqui você implementaria a lógica de busca
+            }
+        });
+
+        // Enter key search
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-icon').click();
+            }
+        });
+
+        // Share buttons functionality
+        document.querySelectorAll('.share-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.classList[1];
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent(document.querySelector('.post-title').textContent);
+                
+                let shareUrl = '';
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://wa.me/?text=${title} ${url}`;
+                        break;
+                    case 'email':
+                        shareUrl = `mailto:?subject=${title}&body=Confira este artigo: ${url}`;
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            });
+        
